@@ -29,12 +29,51 @@ public class FXEventHandler {
     @FXML
     private Button nine;
 
-    String instanceVar;
+    int firstNumber;
+    String operation;
+
     @FXML
     public void numberClicked(ActionEvent event){
-        var numberPressed = ((Button)event.getSource()).getText();
+        var numberPressed = ((Button)event.getSource()).getText();  //tells us which button is pressed
         var currentNum = numbers.getText();
         currentNum = currentNum + numberPressed;
         numbers.setText(currentNum);
+    }
+
+    public void operatorClicked(ActionEvent event){
+        var numberAsText = numbers.getText(); //takes the number from earlier
+        firstNumber = Integer.parseInt(numberAsText);   //turns a string into a integer
+        numbers.clear();    //clears the text field for the next number
+        operation = ((Button)event.getSource()).getText();
+    }
+
+    public void calculate(ActionEvent event){
+        var currentNumberAsText= numbers.getText();
+        var currentNumber = Integer.parseInt(currentNumberAsText);
+        switch(operation){
+            case "+":
+                var result = firstNumber + currentNumber;
+                numbers.setText(""+result);
+                break;
+            case"-":
+                result = firstNumber - currentNumber;
+                numbers.setText(""+result);
+                break;
+            case"*":
+                result = firstNumber * currentNumber;
+                numbers.setText(""+result);
+                break;
+            case"/":
+                result = firstNumber / currentNumber;
+                numbers.setText(""+result);
+                break;
+        }
+    }
+
+    @FXML
+    public void clear(ActionEvent event){
+        firstNumber = 0;
+        operation = "";
+        numbers.clear();
     }
 }
